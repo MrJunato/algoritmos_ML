@@ -27,7 +27,7 @@ iris = load_iris()
 dados = pd.DataFrame(data= np.c_[iris['data'], iris['target']],
                      columns= iris['feature_names'] + ['species'])
 
-# Substituindo os números das especies pelo nome da especie
+# Substituindo os números das espécies pelo nome da especie
 dados['species'] = pd.Categorical.from_codes(iris.target, iris.target_names) 
 
 # Separando em treino e teste
