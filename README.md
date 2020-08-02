@@ -41,5 +41,5 @@ print(df_result)
 print(df_prob)
 ```
 
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+![Image of result](https://github.com/MrJunato/algoritmos_ML/blob/master/df_result.png)
+![Image of prob](https://github.com/MrJunato/algoritmos_ML/blob/master/df_prob.png)
