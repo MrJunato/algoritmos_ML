@@ -40,3 +40,6 @@ df_result,df_prob = naive_bayes(train,'species',test)
 print(df_result)
 print(df_prob)
 ```
+
+![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
