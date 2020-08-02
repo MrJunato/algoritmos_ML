@@ -1,6 +1,6 @@
 # algoritmos_ML
 
-Com o objetivo de estudar a aprender melhor sobre os algoritmos de aprendizado de máquina decidi recria-los do zero, porém adicionei um desafio que é usar apenas o numpy e o pandas para isso. Então nesse repositório estarão armazenados todos os algoritmos que eu reescrever e tiver sucesso.
+Com o objetivo de estudar a aprender melhor sobre os algoritmos de aprendizado de máquina decidi recria-los do zero, porém adicionei um desafio que é usar apenas o numpy e o pandas para isso, não podendo nem mesmo usar a biblioteca "math" ou "statistics". Então nesse repositório estarão armazenados todos os algoritmos que eu reescrever e tiver sucesso.
 
 ## Naive Bayes Gaussiano
 
