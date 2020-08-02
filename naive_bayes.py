@@ -9,6 +9,11 @@ def naive_bayes(df,Y_name,df_previsao):
     Y = df[Y_name]
     classes = df[Y_name].unique()
     
+    # verificar se o dataframe previsao já possui resposta
+    if Y_name in list(df_previsao.columns):
+        test_result = df_previsao[Y_name]
+        df_previsao = df_previsao.loc[:,df.columns != Y_name] 
+    
     # definir função que calcula a raiz quadrada
     def raizq(valor):
         return valor**0.5
@@ -61,7 +66,7 @@ def naive_bayes(df,Y_name,df_previsao):
     df_prob = df_prob.merge(prob_B,on='key',how='left')
      
     # probabilidade bayesiana para cada conjunto de X e Y
-    df_prob['prob'] = df_prob['prob_classe_e_prob_classe_dadoX']/df_prob['prob_B']
+    df_prob['prob'] = round(df_prob['prob_classe_e_prob_classe_dadoX']/df_prob['prob_B'],5)
     df_prob.drop(['prob_classe_e_prob_classe_dadoX','prob_B'], axis = 1, inplace = True) # remover as colunas usadas pelo calculo acima
     
     # cria dataframe que mostra o resultado
