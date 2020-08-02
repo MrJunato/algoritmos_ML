@@ -1,8 +1,5 @@
 # definir função do naive bayes
 def naive_bayes(df,Y_name,df_previsao):
-    import numpy as np
-    import pandas as pd
-    
     # definir número pi
     pi = 3.141592653589793 
     
@@ -24,7 +21,7 @@ def naive_bayes(df,Y_name,df_previsao):
     # definir função familía densidade de probabilidade (FDP)
     # essa função cria uma matriz com o FDP calculado para todos os vetores
     def FDP(df,Y_name,df_previsao):
-        prev_cols = ['pred: '+col for col in df_previsao.columns]
+        prev_cols = [col+'.' for col in df_previsao.columns]
         pred_prob_cols = prev_cols + list(df.columns)
         pred_prob = pd.DataFrame(columns = pred_prob_cols)
         classes = df[Y_name].unique()
@@ -47,13 +44,14 @@ def naive_bayes(df,Y_name,df_previsao):
     # criar coluna P(classe|X)
     df_prob['prob_classe_dadoX'] = df_prob[x_cols].prod(axis=1)
     df_prob.drop(x_cols, axis = 1, inplace = True) # remover as colunas usadas pela multiplicação
+    df_prob.rename({df_prob.columns[i]:x_cols[i] for i in range(0,len(x_cols))}, axis='columns', inplace=True)
     
     # criar coluna de P(classe)*P(classe|X)
     df_prob['prob_classe_e_prob_classe_dadoX'] = df_prob.loc[:,['prob_classe_dadoX','prob_classe']].prod(axis=1)
     df_prob.drop(['prob_classe_dadoX','prob_classe'], axis = 1, inplace = True) # remover as colunas usadas pela multiplicação
     
     # criar key para identificar as colunas com o mesmo conjunto X
-    df_prob['key'] =  (df_prob.iloc[:,0:-2].astype(str).apply(''.join, axis=1)).astype(str)
+    df_prob['key'] =  df_prob[x_cols].astype(str).apply(''.join, axis=1).astype(str)
     
     # calcular em uma nova matriz a somatória de P(classe)*P(classe|X) para cada conjunto diferente de X
     prob_B = pd.DataFrame(df_prob.loc[:,['prob_classe_e_prob_classe_dadoX','key']].groupby(['key'],as_index=False).sum())
@@ -64,14 +62,27 @@ def naive_bayes(df,Y_name,df_previsao):
      
     # probabilidade bayesiana para cada conjunto de X e Y
     df_prob['prob'] = df_prob['prob_classe_e_prob_classe_dadoX']/df_prob['prob_B']
-    df_prob.drop(['prob_classe_e_prob_classe_dadoX','key','prob_B'], axis = 1, inplace = True) # remover as colunas usadas pelo calculo acima
+    df_prob.drop(['prob_classe_e_prob_classe_dadoX','prob_B'], axis = 1, inplace = True) # remover as colunas usadas pelo calculo acima
     
     # cria dataframe que mostra o resultado
-    df_pred = df_prob.iloc[df_prob.groupby(df_prob.columns[:-2])[df_prob.columns[-1]].max()]
-    df_pred = df_pred.loc[~df_pred.index.duplicated(keep='first')]
+    df_pred = df_prob.copy()
+    #df_pred['key'] = df_prob[x_cols].astype(str).apply(''.join, axis=1).astype(str) # criando coluna key                          
+    # verificando maiores probabilidades
+    key_values = df_pred.groupby('key',as_index=False)['prob'].max().astype(str).apply(''.join, axis=1).astype(str)  
+    # criando key que junta com a probabilidade
+    df_pred['key'] = df_pred['key'] + df_pred['prob'].astype(str)
+    # filtrando apenas as linhas com maior probabilidade usando o key_values
+    df_pred = df_pred[df_pred['key'].isin(list(key_values))].reset_index()
+    df_pred.drop(['key','index'],axis=1,inplace=True) # removendo a coluna key
     
     # cria dataframe que mostra a probabilidade de todas as classes
-    df_prob = pd.concat([df_prob.drop(df_prob.columns[-2:], axis=1), (df_prob.pivot_table(columns=df_prob.columns[-2], values=df_prob.columns[-1]).reset_index().rename_axis(None, axis=1)).iloc[:,1:]], axis=1)
-    df_prob.dropna(inplace=True)
+    pivot = df_prob.pivot_table(index=['key'],columns=[Y_name], values=['prob']) # pivoteando probabilidades de classe
+    pivot.columns = [' '.join(col).strip() for col in pivot.columns.values] # renomeando colunas
+    pivot.reset_index(inplace=True)
+
+    df_prob = pd.merge(df_prob,pivot,how='inner',on='key')
+    df_prob.drop([Y_name,'key','prob'],axis=1,inplace=True)
+    df_prob.drop_duplicates(inplace=True)
+    df_prob.reset_index(inplace=True, drop = True)
     
     return df_pred, df_prob
