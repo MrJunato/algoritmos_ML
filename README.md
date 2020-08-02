@@ -12,7 +12,7 @@ Com esses três argumentos a minha função retorna dois dataframes.
 
 Essa versão do Naive Bayes é interessante porque retorna os dataframes formatados e as probabilidades das classes, podendo ser utilizado para gerar insights da base dados em questão.
 
-###Exemplo
+### Exemplo
 No exemplo abaixo foi utilizado o clássico dataframe Iris junto com a função Naive Bayes em questão.
 
 ```python
