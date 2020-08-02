@@ -4,7 +4,7 @@ Com o objetivo de estudar a aprender melhor sobre os algoritmos de aprendizado d
 
 ## Naive Bayes Gaussiano
 
-O primeiro e único algoritmo postado até o momento é o naive bayes gaussiano, desenvolvi uma função que recebe um dataframe do pandas, o nome em string da variável resposta e um dataframe que possua as variáveis explicativas que precisam de uma previsão. 
+O primeiro e único algoritmo postado até o momento é o naive bayes gaussiano, desenvolvi uma função que recebe: um dataframe do pandas, o nome em string da variável resposta e um dataframe que possua as variáveis explicativas que precisam de uma previsão. 
 Com esses três argumentos a minha função retorna dois dataframes. 
 
 - O primeiro dataframe mostra todas as variáveis explicativas e qual seria a classe com maior probabilidade de acontecer;
