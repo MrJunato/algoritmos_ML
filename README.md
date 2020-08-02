@@ -11,3 +11,32 @@ Com esses três argumentos a minha função retorna dois dataframes.
 - O segundo dataframe além de também mostrar todas as variáveis explicativas mostra qual é a probabilidade de acontecer cada classe;
 
 Essa versão do Naive Bayes é interessante porque retorna os dataframes formatados e as probabilidades das classes, podendo ser utilizado para gerar insights da base dados em questão.
+
+###Exemplo
+No exemplo abaixo foi utilizado o clássico dataframe Iris junto com a função Naive Bayes em questão.
+
+```python
+# Importando bibliotecas
+from sklearn.datasets import load_iris
+>import pandas as pd
+>import numpy as np
+>from sklearn.model_selection import train_test_split
+
+# Carrecando Iris
+iris = load_iris()
+dados = pd.DataFrame(data= np.c_[iris['data'], iris['target']],
+                     columns= iris['feature_names'] + ['species'])
+
+# Substituindo os números das especies pelo nome da especie
+dados['species'] = pd.Categorical.from_codes(iris.target, iris.target_names) 
+
+# Separando em treino e teste
+train, test = train_test_split(dados, test_size=0.2)
+
+# Aplicando a função Naive Bayes
+df_result,df_prob = naive_bayes(train,'species',test)
+
+# Vendo o resultado
+print(df_result)
+print(df_prob)
+```
