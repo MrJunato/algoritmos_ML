@@ -2,7 +2,7 @@
 
 Com o objetivo de estudar a aprender melhor sobre os algoritmos de aprendizado de máquina decidi recria-los do zero, porém adicionei um desafio que é usar apenas o numpy e o pandas para isso, não podendo nem mesmo usar a biblioteca "math" ou "statistics". Então nesse repositório estarão armazenados todos os algoritmos que eu reescrever e tiver sucesso.
 
-## Naive Bayes Gaussiano
+## Gaussian Naive Bayes
 
 O primeiro e único algoritmo postado até o momento é o naive bayes gaussiano, desenvolvi uma função que recebe: um dataframe do pandas, o nome em string da variável resposta e um dataframe que possua as variáveis explicativas que precisam de uma previsão. 
 Com esses três argumentos a minha função retorna dois dataframes. 
