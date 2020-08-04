@@ -17,6 +17,7 @@ No exemplo abaixo foi utilizado o clássico dataframe Iris junto com a função 
 
 ```python
 # Importando bibliotecas
+from naive_bayes import naive_bayes
 from sklearn.datasets import load_iris
 import pandas as pd
 import numpy as np
