@@ -44,8 +44,8 @@ print(df_prob)
 
 O output do `print(df_result)` é um dataframe com todas as variáveis explicativas e a previsão da variável resposta com sua probabilidade de estar correta.
 
-![Image of result](https://github.com/MrJunato/algoritmos_ML/blob/master/df_result.png)
+![Image of result](https://github.com/MrJunato/algoritmos_ML/blob/master/Naive%20Bayes/Imagens/df_result.png)
 
 O output do `print(df_prob)` é um dataframe também com todas as variáveis explicativas, porém ele mostra também a probabilidade de ocorrer cada uma das classes.,
 
-![Image of prob](https://github.com/MrJunato/algoritmos_ML/blob/master/df_prob.png)
+![Image of prob](https://github.com/MrJunato/algoritmos_ML/blob/master/Naive%20Bayes/Imagens/df_prob.png)
